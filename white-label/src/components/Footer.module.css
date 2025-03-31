@@ -1,0 +1,352 @@
+.logoImage {
+  background: transparent !important;
+  mix-blend-mode: normal;
+}
+
+.brandLogoLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  transition: transform 0.2s ease;
+}
+
+.brandLogoLink:hover {
+  transform: scale(1.05);
+}
+.footer {
+  background-color: var(--footer-bg);
+  color: #fff;
+  padding: 3rem 1.5rem;
+  margin-top: 2rem;
+  width: 100%;
+}
+
+.footerContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.brandSection {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.brandColumn {
+  flex: 1;
+  min-width: 250px;
+}
+
+.brandHeading {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: rgba(255, 255, 255, 0.9);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 0.5rem;
+}
+
+.brandLink {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #fff;
+  margin-bottom: 0.75rem;
+  transition: transform 0.2s, opacity 0.2s;
+  gap: 0.75rem;
+}
+
+.brandLink:hover {
+  transform: translateX(3px);
+  opacity: 0.9;
+}
+
+.brandLogosRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.brandLogoLink {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.brandLogoLink:hover {
+  opacity: 0.8;
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.logoImage {
+  height: 30px;
+  width: auto;
+  transition: filter 0.2s;
+  background-color: white;
+  padding: 0.3rem;
+  border-radius: 4px;
+}
+
+.logoText {
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 1.5rem 0;
+}
+
+.legalSection {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+.legalColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+.copyrightText {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+}
+
+.legalLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem 2rem;
+  margin-top: 1rem;
+}
+
+.legalLink {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  font-size: 0.9rem;
+  position: relative;
+  transition: color 0.2s;
+}
+
+.legalLink:hover {
+  color: #fff;
+}
+
+.legalLink:hover::after {
+  width: 100%;
+}
+
+.legalLink::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: #fff;
+  transition: width 0.2s ease;
+}
+
+.disclaimer {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin-top: 2rem;
+  line-height: 1.6;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.disclaimer p:not(:last-child) {
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .footer {
+    padding: 2rem 1rem;
+  }
+  
+  .brandSection {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .legalSection {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .brandLogosRow {
+    justify-content: space-between;
+  }
+}
+.footer {
+  background-color: var(--footer-bg);
+  color: #fff;
+  padding: 3rem 1.5rem;
+  margin-top: 2rem;
+  width: 100%;
+}
+
+.footerContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.brandSection {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.brandColumn {
+  flex: 1;
+  min-width: 250px;
+}
+
+.brandHeading {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: rgba(255, 255, 255, 0.9);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 0.5rem;
+}
+
+.brandLink {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #fff;
+  margin-bottom: 0.75rem;
+  transition: transform 0.2s, opacity 0.2s;
+  gap: 0.75rem;
+}
+
+.brandLink:hover {
+  transform: translateX(3px);
+  opacity: 0.9;
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.logoImage {
+  height: 30px;
+  width: auto;
+  transition: filter 0.2s;
+}
+
+.logoText {
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 1.5rem 0;
+}
+
+.legalSection {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+.legalColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+.copyrightText {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+}
+
+.legalLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem 2rem;
+  margin-top: 1rem;
+}
+
+.legalLink {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  font-size: 0.9rem;
+  position: relative;
+  transition: color 0.2s;
+}
+
+.legalLink:hover {
+  color: #fff;
+}
+
+.legalLink:hover::after {
+  width: 100%;
+}
+
+.legalLink::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: #fff;
+  transition: width 0.2s ease;
+}
+
+.disclaimer {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin-top: 2rem;
+  line-height: 1.6;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.disclaimer p:not(:last-child) {
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .footer {
+    padding: 2rem 1rem;
+  }
+  
+  .brandSection {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .legalSection {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
