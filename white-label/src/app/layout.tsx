@@ -1,6 +1,6 @@
 
 
-import { Metadata, ResolvingMetadata, ResolvedMetadata } from 'next';
+import { Metadata } from 'next';
 import { getThemeTypeFromHeaders } from '@cns/utils/serverTheme';
 import ThemeLayout from '@cns/components/ThemeLayout';
 import './globals.css';
