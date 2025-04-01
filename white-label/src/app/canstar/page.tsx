@@ -3,6 +3,14 @@ import Hero from '@cns/components/Hero';
 import Container from '@cns/components/Container';
 import FeaturesSection from '@cns/components/FeaturesSection';
 import Card from '@cns/components/Card';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: "Canstar",
+  icons: {
+    icon: `gold-favicon.ico`,
+  },
+}
 
 export default function Canstar() {
   const features = [

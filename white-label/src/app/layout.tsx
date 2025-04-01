@@ -1,6 +1,6 @@
 
 
-import { Metadata } from 'next';
+import { Metadata, ResolvingMetadata, ResolvedMetadata } from 'next';
 import { getThemeTypeFromHeaders } from '@cns/utils/serverTheme';
 import ThemeLayout from '@cns/components/ThemeLayout';
 import './globals.css';
@@ -10,6 +10,7 @@ export const metadata: Metadata = {
   title: 'Multi-domain App',
   description: 'Next.js multi-domain application with themed interfaces',
 };
+
 
 export default async function RootLayout({
   children,
