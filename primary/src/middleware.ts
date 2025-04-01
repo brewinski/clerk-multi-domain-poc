@@ -1,6 +1,8 @@
 import { clerkMiddleware } from '@clerk/nextjs/server'
 
-export default clerkMiddleware()
+export default clerkMiddleware({
+  debug: Boolean(process.env.NEXT_PUBLIC_CLERK_DEBUG)
+})
 
 export const config = {
   matcher: [

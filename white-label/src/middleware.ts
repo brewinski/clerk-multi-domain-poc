@@ -77,6 +77,8 @@ export default clerkMiddleware(async (auth, req) => {
 
   return hostSiteMiddleware(req)
 
+}, {
+  debug: Boolean(process.env.NEXT_PUBLIC_CLERK_DEBUG)
 })
 
 export const config = {
