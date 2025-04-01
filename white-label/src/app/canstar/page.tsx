@@ -4,6 +4,7 @@ import Container from '@cns/components/Container';
 import FeaturesSection from '@cns/components/FeaturesSection';
 import Card from '@cns/components/Card';
 import { Metadata } from 'next';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: "Canstar",
@@ -48,7 +49,7 @@ export default function Canstar() {
           subtitle="Australia's leading financial comparison site with over 30 years of experience"
           features={features}
         />
-        <a href="/page">page</a>
+        <Link href="/page" >Page</Link>
         <div style={{ marginTop: '2rem', marginBottom: '2rem' }}>
           <h2 style={{ marginBottom: '1rem' }}>Popular Categories</h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1.5rem' }}>

@@ -1,3 +1,7 @@
+import ThemedPage from "@cns/components/ThemedPage"
+
 export default function Page() {
-  return <div>Hello!</div>
+  return <ThemedPage>
+    <div>Hello!</div>
+  </ThemedPage>
 }
