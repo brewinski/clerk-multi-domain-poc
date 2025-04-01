@@ -31,13 +31,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body>
-        <ClerkProvider
-          isSatellite={isSatellite}
-          domain={domain}
-          signInUrl={primarySignInUrl}
-          signUpUrl={primarySignUpUrl}
-
-        >
+        <ClerkProvider>
           <ThemeLayout themeType={themeType}>
             {children}
           </ThemeLayout>

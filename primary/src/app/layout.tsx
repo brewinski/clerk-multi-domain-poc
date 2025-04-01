@@ -37,7 +37,7 @@ export default function RootLayout({
         <ClerkProvider
           signInUrl={primarySignInUrl}
           signUpUrl={primarySignUpUrl}
-          allowedRedirectOrigins={['http://canstar.localhost:3001', 'http://canstarblue.localhost:3001', "http://canstar.gold:3001", "http://canstarblue.blue:3001", "canstarblue-ideal-alignment-production.up.railway.app", "canstar-ideal-alignment-production.up.railway.app"]}
+          allowedRedirectOrigins={['http://canstar.localhost:3001', 'http://canstarblue.localhost:3001', "http://canstar.gold:3001", "http://canstarblue.blue:3001", "https://canstarblue-ideal-alignment-production.up.railway.app", "https://canstar-ideal-alignment-production.up.railway.app"]}
         >
           <Header />
           {children}
