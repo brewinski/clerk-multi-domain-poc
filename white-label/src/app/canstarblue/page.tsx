@@ -4,6 +4,14 @@ import Hero from '../../components/Hero';
 import Container from '../../components/Container';
 import FeaturesSection from '../../components/FeaturesSection';
 import Card from '../../components/Card';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: "Canstar Blue",
+  icons: {
+    icon: `blue-favicon.ico`,
+  },
+}
 
 export default function CanstarBlue() {
   const features = [

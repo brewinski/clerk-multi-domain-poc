@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   description: 'Next.js multi-domain application with themed interfaces',
 };
 
+
 export default async function RootLayout({
   children,
 }: {
