@@ -19,15 +19,6 @@ export default async function RootLayout({
 }) {
   const themeType = await getThemeTypeFromHeaders();
 
-  console.log("process env", process.env)
-
-  const isSatellite = Boolean(process.env.NEXT_PUBLIC_CLERK_IS_SATELLITE)
-  const signInUrl = process.env.NEXT_PUBLIC_CLERK_SIGN_IN_URL
-  const signUpUrl = process.env.NEXT_PUBLIC_CLERK_SIGN_UP_URL
-  const domain = process.env.NEXT_PUBLIC_CLERK_DOMAIN!
-  const primarySignInUrl = signInUrl
-  const primarySignUpUrl = signUpUrl
-
   return (
     <html lang="en">
       <body>
