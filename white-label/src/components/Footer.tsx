@@ -22,7 +22,7 @@ export default function Footer() {
 						<h3 className={styles.brandHeading}>Our Brands</h3>
 						<div className={styles.brandLogosRow} style={{ display: 'flex', flexDirection: 'row', gap: '30px', alignItems: 'center' }}>
 							<Link href="/canstar" className={styles.brandLogoLink}>
-								<Image 
+								<Image
 									src={theme.logo.imageUrl || "https://www.canstar.com.au/wp-content/themes/canstar/dist/images/logo.png"}
 									alt="Canstar Gold"
 									width={150}
@@ -31,9 +31,9 @@ export default function Footer() {
 									style={{ background: 'transparent' }}
 								/>
 							</Link>
-							
+
 							<Link href="/canstarblue" className={styles.brandLogoLink}>
-								<Image 
+								<Image
 									src="https://www.canstarblue.com.au/wp-content/themes/canstar-blue/dist/images/logo.png"
 									alt="Canstar Blue"
 									width={150}
@@ -44,7 +44,7 @@ export default function Footer() {
 							</Link>
 						</div>
 					</div>
-					
+
 					<div className={styles.brandColumn}>
 						<h3 className={styles.brandHeading}>Quick Links</h3>
 						<Link href="#" className={styles.brandLink}>
@@ -60,7 +60,7 @@ export default function Footer() {
 							<span>Insurance</span>
 						</Link>
 					</div>
-					
+
 					<div className={styles.brandColumn}>
 						<h3 className={styles.brandHeading}>Resources</h3>
 						<Link href="#" className={styles.brandLink}>
@@ -87,7 +87,7 @@ export default function Footer() {
 							<p>All Rights Reserved</p>
 						</div>
 					</div>
-					
+
 					<div className={styles.legalColumn}>
 						<div className={styles.legalLinks}>
 							<a href="#" className={styles.legalLink}>Privacy Policy</a>
@@ -101,7 +101,7 @@ export default function Footer() {
 				</div>
 
 				<div className={styles.disclaimer}>
-					<p>To our knowledge, all information in articles on the Canstar Blue website was correct at the time of publication. This information may have changed over time. Refer to the product fact sheet (or relevant similar documentation) before making any purchase decision. Canstar Blue's website terms and conditions apply.</p>
+					<p>To our knowledge, all information in articles on the Canstar Blue website was correct at the time of publication. This information may have changed over time. Refer to the product fact sheet (or relevant similar documentation) before making any purchase decision. Canstar Blue&apos;s website terms and conditions apply.</p>
 					<p>You must not reproduce, transmit, disseminate, sell, or publish information on this website without prior written permission from Canstar Blue.</p>
 				</div>
 			</div>

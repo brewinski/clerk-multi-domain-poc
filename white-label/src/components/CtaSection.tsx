@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { useTheme } from '@cns/contexts/ThemeContext';
+import Image from 'next/image';
 
 interface CtaSectionProps {
 	title: string;
@@ -95,7 +96,7 @@ export default function CtaSection({
 
 			{imageUrl && (
 				<div style={imageStyles}>
-					<img
+					<Image
 						src={imageUrl}
 						alt={title}
 						style={{ width: '100%', height: 'auto', display: 'block' }}

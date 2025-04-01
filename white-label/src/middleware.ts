@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
 
-function isCanstar(hostname: string, path: string) {
+function isCanstar(hostname: string) {
   return (hostname.includes("canstar.") && !hostname.includes("canstarblue."))
 }
 
-function isCanstarBlue(hostname: string, path: string) {
+function isCanstarBlue(hostname: string) {
   return hostname.includes("canstarblue.")
 }
 
@@ -23,7 +23,7 @@ function hostSiteMiddleware(req: NextRequest) {
 
   console.log("HOST", hostname, "PATH", path);
 
-  if (isCanstar(hostname, path)) {
+  if (isCanstar(hostname)) {
     console.log("isCanstar");
     // Set domain type in request headers for server components
     const requestHeaders = new Headers(req.headers);
@@ -37,7 +37,7 @@ function hostSiteMiddleware(req: NextRequest) {
     });
   }
 
-  if (isCanstarBlue(hostname, path)) {
+  if (isCanstarBlue(hostname)) {
     console.log("isCanstarBlue");
     // Set domain type in request headers for server components
     const requestHeaders = new Headers(req.headers);

@@ -11,7 +11,7 @@ export default function Header() {
 	const { theme, themeType } = useTheme();
 	const pathname = usePathname();
 	const [scrolled, setScrolled] = useState(false);
-	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const [isLoggedIn,] = useState(false);
 
 	// We'll use the logo config from the theme
 
