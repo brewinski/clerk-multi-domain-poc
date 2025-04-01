@@ -78,11 +78,11 @@ export default clerkMiddleware(async (auth, req) => {
   return hostSiteMiddleware(req)
 
 }, {
-  isSatellite: true,
-  signInUrl: 'http://primary.localhost:3002/sign-in',
-  signUpUrl: 'http://primary.localhost:3002/sign-up',
-  domain: 'canstar.localhost:3001',
-  debug: true
+  isSatellite: Boolean(process.env.NEXT_PUBLIC_CLERK_IS_SATELLITE),
+  signInUrl: process.env.NEXT_PUBLIC_CLERK_SIGN_IN_URL,
+  signUpUrl: process.env.NEXT_PUBLIC_CLERK_SIGN_UP_URL,
+  domain: process.env.NEXT_PUBLIC_CLERK_DOMAIN,
+  debug: Boolean(process.env.NEXT_PUBLIC_CLERK_DEBUG)
 })
 
 export const config = {
