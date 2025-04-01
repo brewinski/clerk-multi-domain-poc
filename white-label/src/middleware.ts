@@ -2,11 +2,11 @@ import { NextRequest, NextResponse } from "next/server";
 import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
 
 function isCanstar(hostname: string) {
-  return (hostname.includes("canstar.") && !hostname.includes("canstarblue."))
+  return (hostname.startsWith("canstar") && !hostname.startsWith("canstarblue"))
 }
 
 function isCanstarBlue(hostname: string) {
-  return hostname.includes("canstarblue.")
+  return hostname.startsWith("canstarblue")
 }
 
 
