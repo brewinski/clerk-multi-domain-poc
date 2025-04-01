@@ -63,7 +63,6 @@ export default function FeaturesSection({ title, subtitle, features }: FeaturesS
 						key={feature.id}
 						title={feature.title}
 						accentColor={index % 2 === 0}
-						icon={feature.icon}
 					>
 						<p style={{ lineHeight: '1.6' }}>{feature.description}</p>
 					</Card>
