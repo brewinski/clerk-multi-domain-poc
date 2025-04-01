@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from '@clerk/nextjs';
+import { SignedIn, UserButton } from '@clerk/nextjs';
 
 export default function Header() {
 	const [scrolled, setScrolled] = useState(false);
@@ -62,20 +62,6 @@ export default function Header() {
 		objectFit: 'contain',
 	};
 
-	const buttonStyle = (isPrimary: boolean): React.CSSProperties => ({
-		backgroundColor: isPrimary
-			? '#0095a9'
-			: 'transparent',
-		color: isPrimary
-			? '#FFFFFF'
-			: '#0095a9',
-		border: isPrimary ? 'none' : `1px solid #0095a9`,
-		borderRadius: '4px',
-		padding: '0.5rem 1rem',
-		fontWeight: 'medium',
-		cursor: 'pointer',
-		transition: 'all 0.2s ease',
-	});
 
 	return (
 		<header style={headerStyle}>
