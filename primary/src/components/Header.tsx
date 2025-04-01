@@ -98,9 +98,6 @@ export default function Header() {
 			</div>
 
 			<div style={rightSectionStyle}>
-				<SignedIn>
-					<UserButton />
-				</SignedIn>
 			</div>
 		</header>
 	);
