@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { SignedIn, UserButton } from '@clerk/nextjs';
 
 export default function Header() {
 	const [scrolled, setScrolled] = useState(false);
