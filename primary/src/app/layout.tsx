@@ -9,6 +9,7 @@ import {
   SignedOut,
   UserButton,
 } from '@clerk/nextjs'
+import Header from "@/components/Header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -43,15 +44,7 @@ export default function RootLayout({
           signUpUrl={primarySignUpUrl}
           allowedRedirectOrigins={['http://canstar.localhost:3001', 'http://canstarblue.localhost:3001', "http://canstar.gold:3001", "http://canstarblue.blue:3001", "canstarblue-ideal-alignment-production.up.railway.app", "canstar-ideal-alignment-production.up.railway.app"]}
         >
-          <header className="flex justify-end items-center p-4 gap-4 h-16">
-            <SignedOut>
-              <SignInButton />
-              <SignUpButton />
-            </SignedOut>
-            <SignedIn>
-              <UserButton />
-            </SignedIn>
-          </header>
+          <Header />
           {children}
         </ClerkProvider>
       </body>
