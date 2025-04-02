@@ -64,16 +64,29 @@ function hostSiteMiddleware(req: NextRequest) {
 // Set the homepage as a public route
 const isProtectedRoute = createRouteMatcher(['/user'])
 
+const isMFARoute = createRouteMatcher(['/credit-score/verification(.*)'])
+
 
 export default clerkMiddleware(async (auth, req) => {
-  console.log("clerk middleware")
+  const { userId, sessionClaims } = await auth();
+
+  console.log(sessionClaims, userId)
+
   if (isProtectedRoute(req)) {
-    console.log("protect")
     await auth.protect()
     return
   }
 
-  console.log("next middleware")
+  if (isMFARoute(req)) {
+    if (sessionClaims!.isMfa === undefined) {
+      console.error('You need to add the `isMfa` claim to your session token.')
+    }
+
+    if (sessionClaims!.isMfa === false) {
+      return NextResponse.redirect(new URL("/account/manage-mfa/", req.url))
+    }
+  }
+
 
   return hostSiteMiddleware(req)
 
