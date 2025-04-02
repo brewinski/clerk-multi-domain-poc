@@ -195,15 +195,21 @@ export default function Header() {
 						</Link>
 					</div>
 					<div style={navItemStyle}>
-						<Link href="/canstar" style={linkStyle(isActiveLink('/canstar'))}>
+						<Link href="https://canstar-ideal-alignment-production.up.railway.app" style={linkStyle(isActiveLink('/canstar'))}>
 							Canstar
 							<div style={activeIndicatorStyle(isActiveLink('/canstar'))}></div>
 						</Link>
 					</div>
 					<div style={navItemStyle}>
-						<Link href="/canstarblue" style={linkStyle(isActiveLink('/canstarblue'))}>
+						<Link href="https://canstarblue-ideal-alignment-production.up.railway.app" style={linkStyle(isActiveLink('/canstarblue'))}>
 							Canstar Blue
 							<div style={activeIndicatorStyle(isActiveLink('/canstarblue'))}></div>
+						</Link>
+					</div>
+					<div style={navItemStyle}>
+						<Link href="/credit-score" style={linkStyle(isActiveLink('/credit-score'))}>
+							Credit Score
+							<div style={activeIndicatorStyle(isActiveLink('/credit-score'))}></div>
 						</Link>
 					</div>
 				</nav>

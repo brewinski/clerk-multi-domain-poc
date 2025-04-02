@@ -74,7 +74,6 @@ export default clerkMiddleware(async (auth, req) => {
 
   if (isProtectedRoute(req)) {
     await auth.protect()
-    return
   }
 
   if (isMFARoute(req)) {
