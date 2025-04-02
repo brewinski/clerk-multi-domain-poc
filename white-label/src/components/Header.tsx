@@ -3,17 +3,24 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useTheme } from '@cns/contexts/ThemeContext';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
-import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from '@clerk/nextjs';
+import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton, useSignIn, useUser } from '@clerk/nextjs';
 
 export default function Header() {
 	const { theme, themeType } = useTheme();
 	const pathname = usePathname();
+	const searchParams = useSearchParams();
 	const [scrolled, setScrolled] = useState(false);
-	const [isLoggedIn,] = useState(false);
-
-	// We'll use the logo config from the theme
+	const [loading, setLoading] = useState<boolean>(false);
+	
+	// Clerk authentication hooks
+	const { signIn, setActive } = useSignIn();
+	const { user } = useUser();
+	
+	// Get the token from the query params
+	const signInToken = searchParams.get('customToken');
+	const userId = searchParams.get('userId');
 
 	// Detect scroll for adding shadow effect
 	useEffect(() => {
@@ -25,12 +32,48 @@ export default function Header() {
 		return () => window.removeEventListener('scroll', handleScroll);
 	}, []);
 
+	// Handle token-based authentication
+	useEffect(() => {
+		if (!signIn || !setActive || !signInToken || user || loading) {
+			return;
+		}
+
+		const authenticateUser = async () => {
+			setLoading(true);
+			try {
+				console.log('Attempting to sign in with token', { userId });
+				
+				// Create the SignIn with the token
+				const signInAttempt = await signIn.create({
+					strategy: 'ticket',
+					ticket: signInToken as string,
+				});
+
+				// If the sign-in was successful, set the session to active
+				if (signInAttempt.status === 'complete') {
+					await setActive({
+						session: signInAttempt.createdSessionId,
+					});
+					console.log('Successfully signed in user');
+				} else {
+					// If the sign-in attempt is not complete, check why
+					console.error('Sign-in attempt not complete:', JSON.stringify(signInAttempt, null, 2));
+				}
+			} catch (err) {
+				console.error('Error during sign-in:', JSON.stringify(err, null, 2));
+			} finally {
+				setLoading(false);
+			}
+		};
+
+		authenticateUser();
+	}, [signIn, setActive, signInToken, user, loading, userId]);
+
 	const headerStyle: React.CSSProperties = {
 		backgroundColor: 'white',
 		color: '#333',
 		padding: '0',
 		height: '80px',
-		//marginBottom: '1rem',
 		display: 'flex',
 		justifyContent: 'space-between',
 		alignItems: 'center',
@@ -156,9 +199,7 @@ export default function Header() {
 			<div style={leftSectionStyle}>
 				<div style={logoContainerStyle}>
 					<Link href="/" style={{ textDecoration: 'none' }}>
-						{/* Replace with actual image paths when available */}
 						<div style={logoImageStyle}>
-							{/* Using theme-based logo with fallback text */}
 							<div style={{ position: 'relative', height: '55px', width: 'auto' }}>
 								<Image
 									src={theme.logo.imageUrl}
@@ -216,10 +257,8 @@ export default function Header() {
 			</div>
 
 			<div style={rightSectionStyle}>
-				{isLoggedIn ? (
-					<div style={userAvatarStyle}>
-						<span>U</span>
-					</div>
+				{loading ? (
+					<div>Signing in...</div>
 				) : (
 					<>
 						<SignedIn>
@@ -239,4 +278,3 @@ export default function Header() {
 		</header>
 	);
 }
-
