@@ -74,6 +74,7 @@ export default function Header() {
 		color: '#333',
 		padding: '0',
 		height: '80px',
+		//marginBottom: '1rem',
 		display: 'flex',
 		justifyContent: 'space-between',
 		alignItems: 'center',
@@ -199,7 +200,9 @@ export default function Header() {
 			<div style={leftSectionStyle}>
 				<div style={logoContainerStyle}>
 					<Link href="/" style={{ textDecoration: 'none' }}>
+						{/* Replace with actual image paths when available */}
 						<div style={logoImageStyle}>
+							{/* Using theme-based logo with fallback text */}
 							<div style={{ position: 'relative', height: '55px', width: 'auto' }}>
 								<Image
 									src={theme.logo.imageUrl}
