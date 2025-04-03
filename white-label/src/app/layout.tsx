@@ -25,6 +25,7 @@ export default async function RootLayout({
         {session && (
           <main>
             <h1>Welcome, {session.user.name}!</h1>
+            <a href="/auth/login">Log in</a>
           </main>
         )}
         {!session && (
