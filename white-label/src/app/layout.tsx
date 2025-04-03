@@ -31,7 +31,7 @@ export default async function RootLayout({
         {!session && (
           <main>
             <a href="/auth/login?screen_hint=signup">Sign up</a>
-            <a href="/auth/login">Log out</a>
+            <a href="/auth/login">Log in</a>
           </main>
         )}
         {/*<ClerkProvider>*/}

@@ -96,7 +96,22 @@ const isMFARoute = createRouteMatcher(['/credit-score/verification(.*)'])
 
 
 export default async function middleware(request: NextRequest) {
-  return await auth0.middleware(request)
+  const authResponse = await auth0.middleware(request)
+
+  // if path starts with /auth, let the auth middleware handle it
+  if (request.nextUrl.pathname.startsWith("/auth")) {
+    return authResponse
+  }
+
+  // call any other middleware here
+  const someOtherResponse = hostSiteMiddleware(request)
+
+  // add any headers from the auth middleware to the response
+  for (const [key, value] of authResponse.headers) {
+    someOtherResponse.headers.set(key, value)
+  }
+
+  return someOtherResponse
 }
 
 export const config = {
