@@ -66,33 +66,32 @@ const isProtectedRoute = createRouteMatcher(['/user', "/credit-score/verificatio
 
 const isMFARoute = createRouteMatcher(['/credit-score/verification(.*)'])
 
-export default hostSiteMiddleware
 
-//export default clerkMiddleware(async (auth, req) => {
-//  const { userId, sessionClaims } = await auth();
-//
-//  console.log(sessionClaims, userId)
-//
-//  if (isProtectedRoute(req)) {
-//    await auth.protect()
-//  }
-//
-//  if (isMFARoute(req)) {
-//    if (sessionClaims!.isMfa === undefined) {
-//      console.error('You need to add the `isMfa` claim to your session token.')
-//    }
-//
-//    if (sessionClaims!.isMfa === false) {
-//      return NextResponse.redirect(new URL("/account/manage-mfa/", req.url))
-//    }
-//  }
-//
-//
-//  return hostSiteMiddleware(req)
-//
-//}, {
-//  debug: Boolean(process.env.NEXT_PUBLIC_CLERK_DEBUG)
-//})
+export default clerkMiddleware(async (auth, req) => {
+  const { userId, sessionClaims } = await auth();
+
+  console.log(sessionClaims, userId)
+
+  if (isProtectedRoute(req)) {
+    await auth.protect()
+  }
+
+  if (isMFARoute(req)) {
+    if (sessionClaims!.isMfa === undefined) {
+      console.error('You need to add the `isMfa` claim to your session token.')
+    }
+
+    if (sessionClaims!.isMfa === false) {
+      return NextResponse.redirect(new URL("/account/manage-mfa/", req.url))
+    }
+  }
+
+
+  return hostSiteMiddleware(req)
+
+}, {
+  debug: Boolean(process.env.NEXT_PUBLIC_CLERK_DEBUG)
+})
 
 export const config = {
   matcher: [
