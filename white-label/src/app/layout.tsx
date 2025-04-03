@@ -1,5 +1,4 @@
-
-
+import { UserProvider } from '@auth0/nextjs-auth0/client';
 import { Metadata } from 'next';
 import { getThemeTypeFromHeaders } from '@cns/utils/serverTheme';
 import ThemeLayout from '@cns/components/ThemeLayout';
@@ -23,9 +22,11 @@ export default async function RootLayout({
     <html lang="en">
       <body>
         <ClerkProvider>
-          <ThemeLayout themeType={themeType}>
-            {children}
-          </ThemeLayout>
+          <UserProvider>
+            <ThemeLayout themeType={themeType}>
+              {children}
+            </ThemeLayout>
+          </UserProvider>
         </ClerkProvider>
       </body>
     </html >
