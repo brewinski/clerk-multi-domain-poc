@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
+import { auth0 } from "./utils/auth0/auth0";
 
 function isCanstar(hostname: string) {
   return (hostname.startsWith("canstar") && !hostname.startsWith("canstarblue"))
@@ -67,31 +68,36 @@ const isProtectedRoute = createRouteMatcher(['/user', "/credit-score/verificatio
 const isMFARoute = createRouteMatcher(['/credit-score/verification(.*)'])
 
 
-export default clerkMiddleware(async (auth, req) => {
-  const { userId, sessionClaims } = await auth();
+//export default clerkMiddleware(async (auth, req) => {
+//  const { userId, sessionClaims } = await auth();
+//
+//  console.log(sessionClaims, userId)
+//
+//  if (isProtectedRoute(req)) {
+//    await auth.protect()
+//  }
+//
+//  if (isMFARoute(req)) {
+//    if (sessionClaims!.isMfa === undefined) {
+//      console.error('You need to add the `isMfa` claim to your session token.')
+//    }
+//
+//    if (sessionClaims!.isMfa === false) {
+//      return NextResponse.redirect(new URL("/account/manage-mfa/", req.url))
+//    }
+//  }
+//
+//
+//  return hostSiteMiddleware(req)
+//
+//}, {
+//  debug: Boolean(process.env.NEXT_PUBLIC_CLERK_DEBUG)
+//})
 
-  console.log(sessionClaims, userId)
 
-  if (isProtectedRoute(req)) {
-    await auth.protect()
-  }
-
-  if (isMFARoute(req)) {
-    if (sessionClaims!.isMfa === undefined) {
-      console.error('You need to add the `isMfa` claim to your session token.')
-    }
-
-    if (sessionClaims!.isMfa === false) {
-      return NextResponse.redirect(new URL("/account/manage-mfa/", req.url))
-    }
-  }
-
-
-  return hostSiteMiddleware(req)
-
-}, {
-  debug: Boolean(process.env.NEXT_PUBLIC_CLERK_DEBUG)
-})
+export default async function middleware(request: NextRequest) {
+  return await auth0.middleware(request)
+}
 
 export const config = {
   matcher: [

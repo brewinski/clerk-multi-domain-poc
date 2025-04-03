@@ -6,15 +6,9 @@ import { useTheme } from '@cns/contexts/ThemeContext';
 import { usePathname, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton, useSignIn, useUser } from '@clerk/nextjs';
-import { useUser as auth0UseUser } from '@auth0/nextjs-auth0/client';
 
 // Create a separate client component that uses useSearchParams
 function HeaderContent() {
-	const { user: auth0User, error, isLoading } = auth0UseUser();
-
-	//if (isLoading) return <div>Loading...</div>;
-	//if (error) return <div>{error.message}</div>;
-
 	const { theme, themeType } = useTheme();
 	const pathname = usePathname();
 	const searchParams = useSearchParams();
@@ -267,17 +261,6 @@ function HeaderContent() {
 			</div>
 
 			<div style={rightSectionStyle}>
-				<a href="/api/auth/login"><button style={buttonStyle(true)}>Auth0 Login</button></a>
-
-				<a href="/api/auth/logout"><button style={buttonStyle(true)}>Logout</button></a>
-				{auth0User && (
-					<div>
-						<img src={auth0User!.picture!} alt={auth0User!.name!} />
-						<h2>{auth0User!.name!}</h2>
-						<p>{auth0User!.email!}</p>
-					</div>
-
-				)}
 				{loading ? (
 					<div>Signing in...</div>
 				) : (
