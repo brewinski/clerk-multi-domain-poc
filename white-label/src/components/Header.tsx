@@ -1,23 +1,24 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useTheme } from '@cns/contexts/ThemeContext';
 import { usePathname, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton, useSignIn, useUser } from '@clerk/nextjs';
 
-export default function Header() {
+// Create a separate client component that uses useSearchParams
+function HeaderContent() {
 	const { theme, themeType } = useTheme();
 	const pathname = usePathname();
 	const searchParams = useSearchParams();
 	const [scrolled, setScrolled] = useState(false);
 	const [loading, setLoading] = useState<boolean>(false);
-	
+
 	// Clerk authentication hooks
 	const { signIn, setActive } = useSignIn();
 	const { user } = useUser();
-	
+
 	// Get the token from the query params
 	const signInToken = searchParams.get('customToken');
 	const userId = searchParams.get('userId');
@@ -42,7 +43,7 @@ export default function Header() {
 			setLoading(true);
 			try {
 				console.log('Attempting to sign in with token', { userId });
-				
+
 				// Create the SignIn with the token
 				const signInAttempt = await signIn.create({
 					strategy: 'ticket',
@@ -279,5 +280,31 @@ export default function Header() {
 				)}
 			</div>
 		</header>
+	);
+}
+
+// Main component that wraps the HeaderContent with Suspense
+export default function Header() {
+	return (
+		<Suspense fallback={
+			<header style={{
+				backgroundColor: 'white',
+				color: '#333',
+				padding: '0',
+				height: '80px',
+				display: 'flex',
+				justifyContent: 'center',
+				alignItems: 'center',
+				boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
+				position: 'sticky',
+				top: '0',
+				zIndex: 1000,
+				width: '100%',
+			}}>
+				<div>Loading header...</div>
+			</header>
+		}>
+			<HeaderContent />
+		</Suspense>
 	);
 }
