@@ -33,11 +33,11 @@ export default async function RootLayout({
             <a href="/auth/login">Log in</a>
           </main>
         )}
-        <ClerkProvider>
-          <ThemeLayout themeType={themeType}>
-            {children}
-          </ThemeLayout>
-        </ClerkProvider>
+        {/*<ClerkProvider>*/}
+        <ThemeLayout themeType={themeType}>
+          {children}
+        </ThemeLayout>
+        {/*</ClerkProvider>*/}
       </body>
     </html >
   );
