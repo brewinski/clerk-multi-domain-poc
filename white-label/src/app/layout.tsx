@@ -5,6 +5,7 @@ import { getThemeTypeFromHeaders } from '@cns/utils/serverTheme';
 import ThemeLayout from '@cns/components/ThemeLayout';
 import './globals.css';
 import { ClerkProvider } from '@clerk/nextjs';
+import Head from 'next/head';
 
 export const metadata: Metadata = {
   title: 'Multi-domain App',
@@ -20,6 +21,9 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
+      <Head>
+        <meta name="google-site-verification" content="P9z0uYnscP75CoOnAOCAU-7ekJUfzdkuDfEHKkB8yDk" />
+      </Head>
       <body>
         <ClerkProvider>
           {children}
