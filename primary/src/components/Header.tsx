@@ -67,7 +67,7 @@ export default function Header() {
 			<div style={logoSectionStyle}>
 				{/* Canstar Logo */}
 				<div style={logoContainerStyle}>
-					<Link href="/" style={{ textDecoration: 'none' }}>
+					<Link href="https://canstar-ideal-alignment-production.up.railway.app" style={{ textDecoration: 'none' }}>
 						<div style={{ position: 'relative', height: '55px', width: 'auto' }}>
 							<Image
 								src="https://www.canstar.com.au/wp-content/themes/canstar/dist/images/logo.png"
@@ -82,7 +82,7 @@ export default function Header() {
 
 				{/* Canstar Blue Logo */}
 				<div style={logoContainerStyle}>
-					<Link href="/" style={{ textDecoration: 'none' }}>
+					<Link href="https://canstarblue-ideal-alignment-production.up.railway.app" style={{ textDecoration: 'none' }}>
 						<div style={{ position: 'relative', height: '55px', width: 'auto' }}>
 							<Image
 								src="https://www.canstarblue.com.au/wp-content/themes/canstar-blue/dist/images/logo.png"
