@@ -38,7 +38,7 @@ export default function ThemedPage({ children }: ThemedPageProps) {
 
 	return (
 		<div style={pageStyle}>
-			<Header />
+			{/* <Header /> */}
 			<main style={mainStyle}>
 				{children}
 
