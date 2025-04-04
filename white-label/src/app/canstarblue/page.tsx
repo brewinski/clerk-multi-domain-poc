@@ -5,7 +5,6 @@ import Container from '../../components/Container';
 import FeaturesSection from '../../components/FeaturesSection';
 import Card from '../../components/Card';
 import { Metadata } from 'next';
-import { ThemeType } from '@cns/themes/themeConfig';
 
 export const metadata: Metadata = {
   title: "Canstar Blue",

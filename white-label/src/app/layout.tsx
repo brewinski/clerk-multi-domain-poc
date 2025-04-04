@@ -24,7 +24,18 @@ export default async function RootLayout({
       <meta name="robots" content="all" />
       <meta name="google-site-verification" content="P9z0uYnscP75CoOnAOCAU-7ekJUfzdkuDfEHKkB8yDk" />
       <body>
-        <ClerkProvider>
+        <ClerkProvider
+          appearance={{
+            variables: {
+              colorPrimary: "#0095a9",
+              colorNeutral: "#000000",
+            },
+            layout: {
+              socialButtonsVariant: 'iconButton',
+              termsPageUrl: 'https://clerk.com/terms',
+            },
+          }}
+        >
           {children}
         </ClerkProvider>
       </body>

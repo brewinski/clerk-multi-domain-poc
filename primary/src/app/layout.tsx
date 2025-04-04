@@ -41,7 +41,7 @@ export default function RootLayout({
           appearance={{
             variables: {
               colorPrimary: "#0095a9",
-              colorNeutral: "#0095a9",
+              colorNeutral: "#000000",
               fontFamily: ""
             },
             layout: {

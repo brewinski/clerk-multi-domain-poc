@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useTheme } from '@cns/contexts/ThemeContext';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { redirect, usePathname, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton, useSignIn, useUser } from '@clerk/nextjs';
 
@@ -277,9 +277,14 @@ function HeaderContent() {
 								<UserButton>
 									<UserButton.MenuItems>
 										<UserButton.Action
-											label="Dashboard"
+											label="Credit Score"
 											labelIcon={<DotIcon />}
-											onClick={() => alert('init chat')}
+											onClick={() => redirect("/credit-score")}
+										/>
+										<UserButton.Action
+											label="Profile"
+											labelIcon={<DotIcon />}
+											onClick={() => { redirect("https://primary-alignment-production.up.railway.app/profile") }}
 										/>
 									</UserButton.MenuItems>
 									{/* You can also pass the content as direct children */}
