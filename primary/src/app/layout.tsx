@@ -38,6 +38,17 @@ export default function RootLayout({
           signInUrl={primarySignInUrl}
           signUpUrl={primarySignUpUrl}
           allowedRedirectOrigins={['http://canstar.localhost:3001', 'http://canstarblue.localhost:3001', "http://canstar.gold:3001", "http://canstarblue.blue:3001", "https://canstarblue-ideal-alignment-production.up.railway.app", "https://canstar-ideal-alignment-production.up.railway.app"]}
+          appearance={{
+            variables: {
+              colorPrimary: "#0095a9",
+              colorNeutral: "#0095a9",
+              fontFamily: ""
+            },
+            layout: {
+              socialButtonsVariant: 'iconButton',
+              termsPageUrl: 'https://clerk.com/terms',
+            },
+          }}
         >
           <Header />
           {children}

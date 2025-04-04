@@ -17,15 +17,12 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const themeType = await getThemeTypeFromHeaders();
 
   return (
     <html lang="en">
       <body>
         <ClerkProvider>
-          <ThemeLayout themeType={themeType}>
-            {children}
-          </ThemeLayout>
+          {children}
         </ClerkProvider>
       </body>
     </html >

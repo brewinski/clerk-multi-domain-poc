@@ -1,11 +1,18 @@
-'use client';
-
 import React, { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useTheme } from '@cns/contexts/ThemeContext';
 import { usePathname, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton, useSignIn, useUser } from '@clerk/nextjs';
+
+
+const DotIcon = () => {
+	return (
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor">
+			<path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z" />
+		</svg>
+	)
+}
 
 // Create a separate client component that uses useSearchParams
 function HeaderContent() {
@@ -265,21 +272,41 @@ function HeaderContent() {
 					<div>Signing in...</div>
 				) : (
 					<>
-						<SignedIn>
-							<UserButton />
-						</SignedIn>
-						<SignedOut>
-							<SignInButton>
-								<button style={buttonStyle(false)}>Sign In</button>
-							</SignInButton>
-							<SignUpButton>
-								<button style={buttonStyle(true)}>Sign Up</button>
-							</SignUpButton>
-						</SignedOut>
+						{user && (
+							<>
+								<UserButton>
+									<UserButton.MenuItems>
+										<UserButton.Action
+											label="Dashboard"
+											labelIcon={<DotIcon />}
+											onClick={() => alert('init chat')}
+										/>
+									</UserButton.MenuItems>
+									{/* You can also pass the content as direct children */}
+									<UserButton.UserProfilePage label="Terms" labelIcon={<DotIcon />} url="terms">
+										<div>
+											<h1>Custom Terms Page</h1>
+											<p>This is the content of the custom terms page.</p>
+										</div>
+									</UserButton.UserProfilePage>
+								</UserButton>
+
+							</>
+						)}
+						{!user && (
+							<>
+								<SignInButton>
+									<button style={buttonStyle(false)}>Sign In</button>
+								</SignInButton>
+								<SignUpButton>
+									<button style={buttonStyle(true)}>Sign Up</button>
+								</SignUpButton>
+							</>
+						)}
 					</>
 				)}
 			</div>
-		</header>
+		</header >
 	);
 }
 

@@ -5,6 +5,8 @@ import FeaturesSection from '@cns/components/FeaturesSection';
 import Card from '@cns/components/Card';
 import { Metadata } from 'next';
 import Link from 'next/link';
+import { ThemeType } from '@cns/themes/themeConfig';
+import ThemeLayout from '@cns/components/ThemeLayout';
 
 export const metadata: Metadata = {
   title: "Canstar",
