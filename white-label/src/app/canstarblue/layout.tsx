@@ -1,3 +1,4 @@
+import ThemedPage from "@cns/components/ThemedPage";
 import ThemeLayout from "@cns/components/ThemeLayout";
 import { ThemeType } from "@cns/themes/themeConfig";
 import { Metadata } from "next";
@@ -15,6 +16,8 @@ export default function Layout({ children }: Readonly<{
   const themeType: ThemeType = "canstarblue"
 
   return <ThemeLayout themeType={themeType}>
-    {children}
+    <ThemedPage>
+      {children}
+    </ThemedPage>
   </ThemeLayout>
 }
