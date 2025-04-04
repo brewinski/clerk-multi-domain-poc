@@ -12,7 +12,7 @@ const DotIcon = () => {
 
 const CustomPageContent = () => {
   return (<>
-    <a href="https://canstarblue-ideal-alignment-production.up.railway.app">
+    <a href="https://canstarblue-ideal-alignment-production.up.railway.app/energy">
       <Image
         src="/dashboard-example-pt1.png"
         sizes="100vw"
