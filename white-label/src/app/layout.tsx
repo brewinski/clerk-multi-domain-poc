@@ -23,9 +23,9 @@ export default async function RootLayout({
     <html lang="en">
       <meta name="google-site-verification" content="P9z0uYnscP75CoOnAOCAU-7ekJUfzdkuDfEHKkB8yDk" />
       <body>
-        {/*<ClerkProvider>*/}
-        {children}
-        {/* </ClerkProvider> */}
+        <ClerkProvider>
+          {children}
+        </ClerkProvider>
       </body>
     </html >
   );

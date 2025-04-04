@@ -66,6 +66,7 @@ const isProtectedRoute = createRouteMatcher(['/user', "/credit-score/verificatio
 
 const isMFARoute = createRouteMatcher(['/credit-score/verification(.*)'])
 
+
 export default clerkMiddleware(async (auth, req) => {
   const { userId, sessionClaims } = await auth();
 
