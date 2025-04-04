@@ -21,6 +21,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
+      <meta name="robots" content="all" />
       <meta name="google-site-verification" content="P9z0uYnscP75CoOnAOCAU-7ekJUfzdkuDfEHKkB8yDk" />
       <body>
         <ClerkProvider>
