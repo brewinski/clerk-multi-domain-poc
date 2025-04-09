@@ -112,10 +112,33 @@ function verifyWithClerkVerifySolution(secondVerificationAge: number) {
 	return { success: true, creditscore: 700 }
 }
 
+function verifyWithClerkWithOptionalMFASolution(firstVerificationAge: number, secondVerificationAge: number, mfaConfigured: boolean) {
+	if (mfaConfigured) {
+		if (secondVerificationAge >= MFA_VERIFICATION_MINS || secondVerificationAge == NEVER_VALUE) {
+			return reverificationError(
+				"strict"
+			)
+		}
+
+		return { success: true, creditscore: 700 }
+	}
+
+	if (firstVerificationAge >= MFA_VERIFICATION_MINS || firstVerificationAge == NEVER_VALUE) {
+		return reverificationError(
+			"strict"
+		)
+	}
+
+
+	// do work....
+	return { success: true, creditscore: 700 }
+}
+
 export async function check(
+	clerkOptionalMFAFlow: boolean
 ): Promise<any> {
 	const { factorVerificationAge, sessionClaims, userId, sessionId } = await auth.protect()
-	const userHasConfiguredMFA: boolean = !!sessionClaims?.isMfa
+	const hasMFAConfigured: boolean = !!sessionClaims?.isMfa
 
 	const [firstVerificationAge, secondVerificationAge] = factorVerificationAge!
 
@@ -127,14 +150,19 @@ export async function check(
 	const primaryPhoneNumberVerified = user?.primaryPhoneNumber?.verification?.status === "verified"
 
 	console.log(
-		"mfaConfigured", userHasConfiguredMFA,
+		"mfaConfigured", hasMFAConfigured,
 		"firstFactorVerificationAge", firstVerificationAge,
 		"secondFactorVerificationAge", secondVerificationAge,
 		"primaryPhoneNumber", primaryPhoneNumber,
-		"primaryPhoneNumberVerified", primaryPhoneNumberVerified
+		"primaryPhoneNumberVerified", primaryPhoneNumberVerified,
+		"user", user,
 	)
 
-	if (!userHasConfiguredMFA) {
+	if (clerkOptionalMFAFlow) {
+		return verifyWithClerkWithOptionalMFASolution(firstVerificationAge, secondVerificationAge, hasMFAConfigured)
+	}
+
+	if (!hasMFAConfigured) {
 		return verifyWithCustomTOTPSolution(twillioVerification, primaryPhoneNumber, primaryPhoneNumberVerified)
 	}
 
