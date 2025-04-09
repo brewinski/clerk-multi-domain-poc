@@ -8,34 +8,159 @@ import { check, verify } from "./actions";
 import { redirect, useRouter } from "next/navigation";
 import { useState } from 'react';
 
-export default function CreditScorePage() {
-  const router = useRouter()
+const useVerificationModal = () => {
   const { theme } = useTheme();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState({
     title: '',
     content: '',
     buttonText: '',
+    displayCode: false,
     onButtonClick: () => { }
   });
-
-  const openModal = (title: any, content: any, buttonText: any, onButtonClick: any) => {
-    setModalContent({
-      title,
-      content,
-      buttonText,
-      onButtonClick
-    });
-    setIsModalOpen(true);
-  };
 
   const closeModal = () => {
     setIsModalOpen(false);
   };
 
+  const openModal = (title: any, content: any, buttonText: any, onButtonClick: any, displayCode: boolean = false) => {
+    setModalContent({
+      title,
+      content,
+      buttonText,
+      displayCode,
+      onButtonClick
+    });
+    setIsModalOpen(true);
+  };
+
+  const ctaButtonStyle = {
+    backgroundColor: theme.colors.primary,
+    color: '#ffffff',
+    border: 'none',
+    padding: '1rem 2rem',
+    fontSize: '1.1rem',
+    fontWeight: 'bold',
+    borderRadius: theme.borderRadius,
+    cursor: 'pointer',
+    boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+    transition: 'all 0.3s ease',
+  };
+
+  // Modal component
+  const Modal = () => {
+    if (!isModalOpen) return null;
+
+    return (
+      <div style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        zIndex: 1000,
+      }}>
+        <div style={{
+          backgroundColor: '#ffffff',
+          borderRadius: theme.borderRadius,
+          padding: '2rem',
+          maxWidth: '500px',
+          width: '90%',
+          boxShadow: '0 4px 20px rgba(0,0,0,0.2)',
+        }}>
+          <div style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginBottom: '1rem',
+          }}>
+            <h2 style={{ color: theme.colors.primary, margin: 0 }}>{modalContent.title}</h2>
+            <button
+              onClick={closeModal}
+              style={{
+                border: 'none',
+                background: 'none',
+                fontSize: '1.5rem',
+                cursor: 'pointer',
+                color: '#666',
+              }}
+            >
+              ×
+            </button>
+          </div>
+          <div style={{ margin: '1.5rem 0' }}>
+            <p>{modalContent.content}</p>
+            {modalContent.displayCode &&
+              <Image
+                quality={90}
+                width={400}
+                height={150}
+                priority // Important for LCP (Largest Contentful Paint) optimization
+                src="/code-input.png"
+                style={
+                  {
+                    margin: "auto"
+                  }
+                }
+                alt="mock code input" />}
+          </div>
+          <div style={{
+            display: 'flex',
+            justifyContent: 'flex-end'
+          }}>
+            <button
+              onClick={() => {
+                modalContent.onButtonClick();
+                closeModal();
+              }}
+              style={{
+                ...ctaButtonStyle,
+                padding: '0.75rem 1.5rem',
+              }}
+            >
+              {modalContent.buttonText}
+            </button>
+            <button
+              onClick={closeModal}
+              style={{
+                backgroundColor: '#f1f1f1',
+                color: '#333',
+                border: 'none',
+                padding: '0.75rem 1.5rem',
+                fontSize: '1rem',
+                borderRadius: theme.borderRadius,
+                cursor: 'pointer',
+                marginLeft: '0.75rem',
+              }}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  return {
+    ModalComponent: Modal,
+    openModal: openModal,
+    closeModal: closeModal,
+  }
+}
+
+export default function CreditScorePage() {
+  const router = useRouter()
+  const { theme } = useTheme();
+
   const reverify = useReverification(
     check,
   )
+
+  const { closeModal, openModal, ModalComponent: Modal } = useVerificationModal()
 
   const containerStyle = {
     maxWidth: '1200px',
@@ -137,90 +262,6 @@ export default function CreditScorePage() {
     alignItems: 'flex-start',
   };
 
-  // Modal component
-  const Modal = () => {
-    if (!isModalOpen) return null;
-
-    return (
-      <div style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        zIndex: 1000,
-      }}>
-        <div style={{
-          backgroundColor: '#ffffff',
-          borderRadius: theme.borderRadius,
-          padding: '2rem',
-          maxWidth: '500px',
-          width: '90%',
-          boxShadow: '0 4px 20px rgba(0,0,0,0.2)',
-        }}>
-          <div style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            marginBottom: '1rem',
-          }}>
-            <h2 style={{ color: theme.colors.primary, margin: 0 }}>{modalContent.title}</h2>
-            <button
-              onClick={closeModal}
-              style={{
-                border: 'none',
-                background: 'none',
-                fontSize: '1.5rem',
-                cursor: 'pointer',
-                color: '#666',
-              }}
-            >
-              ×
-            </button>
-          </div>
-          <div style={{ margin: '1.5rem 0' }}>
-            <p>{modalContent.content}</p>
-          </div>
-          <div style={{
-            display: 'flex',
-            justifyContent: 'flex-end'
-          }}>
-            <button
-              onClick={() => {
-                modalContent.onButtonClick();
-                closeModal();
-              }}
-              style={{
-                ...ctaButtonStyle,
-                padding: '0.75rem 1.5rem',
-              }}
-            >
-              {modalContent.buttonText}
-            </button>
-            <button
-              onClick={closeModal}
-              style={{
-                backgroundColor: '#f1f1f1',
-                color: '#333',
-                border: 'none',
-                padding: '0.75rem 1.5rem',
-                fontSize: '1rem',
-                borderRadius: theme.borderRadius,
-                cursor: 'pointer',
-                marginLeft: '0.75rem',
-              }}
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  };
 
   return (
     <ThemedPage>
@@ -262,7 +303,8 @@ export default function CreditScorePage() {
                     console.error(err)
                   }
 
-                }
+                },
+                true,
               );
             }
 
@@ -270,20 +312,29 @@ export default function CreditScorePage() {
               openModal(
                 "This feature requires MFA (Custom Provider [Twillio])",
                 `Verify a phone number: [ pretend this is a textbox ${resp.totp.metadata.phonenumber}]`,
-                "Verify",
+                "Send Code",
                 async () => {
-                  try {
-                    await verify("000000")
+                  await closeModal()
+                  await openModal(
+                    "Verification required (Custom Provider [Twillio])",
+                    `Enter the code sent to your phone to continue ${resp.totp.metadata.phonenumber}`,
+                    "Verify",
+                    async () => {
+                      try {
+                        await verify("000000")
 
-                    const resp = await reverify()
-                    if (resp.success) {
-                      router.push("/credit-score/verification")
-                      return
-                    }
-                  } catch (err) {
-                    console.error(err)
-                  }
+                        const resp = await reverify()
+                        if (resp.success) {
+                          router.push("/credit-score/verification")
+                          return
+                        }
+                      } catch (err) {
+                        console.error(err)
+                      }
 
+                    },
+                    true,
+                  );
                 }
               );
             }
