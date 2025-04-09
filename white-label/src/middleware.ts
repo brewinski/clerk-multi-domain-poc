@@ -64,7 +64,9 @@ function hostSiteMiddleware(req: NextRequest) {
 // Set the homepage as a public route
 const isProtectedRoute = createRouteMatcher(['/user', "/credit-score/verification(.*)"])
 
-const isMFARoute = createRouteMatcher(['/credit-score/verification(.*)'])
+const isMFARoute = createRouteMatcher([
+  //'/credit-score/verification(.*)'
+])
 
 
 export default clerkMiddleware(async (auth, req) => {

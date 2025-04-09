@@ -1,11 +1,41 @@
 'use client';
 
+import { useClerk, useReverification, useUser, } from "@clerk/nextjs";
 import ThemedPage from "@cns/components/ThemedPage";
 import { useTheme } from '@cns/contexts/ThemeContext';
 import Image from 'next/image';
+import { check, verify } from "./actions";
+import { redirect, useRouter } from "next/navigation";
+import { useState } from 'react';
 
 export default function CreditScorePage() {
+  const router = useRouter()
   const { theme } = useTheme();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalContent, setModalContent] = useState({
+    title: '',
+    content: '',
+    buttonText: '',
+    onButtonClick: () => { }
+  });
+
+  const openModal = (title: any, content: any, buttonText: any, onButtonClick: any) => {
+    setModalContent({
+      title,
+      content,
+      buttonText,
+      onButtonClick
+    });
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const reverify = useReverification(
+    check,
+  )
 
   const containerStyle = {
     maxWidth: '1200px',
@@ -107,8 +137,95 @@ export default function CreditScorePage() {
     alignItems: 'flex-start',
   };
 
+  // Modal component
+  const Modal = () => {
+    if (!isModalOpen) return null;
+
+    return (
+      <div style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        zIndex: 1000,
+      }}>
+        <div style={{
+          backgroundColor: '#ffffff',
+          borderRadius: theme.borderRadius,
+          padding: '2rem',
+          maxWidth: '500px',
+          width: '90%',
+          boxShadow: '0 4px 20px rgba(0,0,0,0.2)',
+        }}>
+          <div style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginBottom: '1rem',
+          }}>
+            <h2 style={{ color: theme.colors.primary, margin: 0 }}>{modalContent.title}</h2>
+            <button
+              onClick={closeModal}
+              style={{
+                border: 'none',
+                background: 'none',
+                fontSize: '1.5rem',
+                cursor: 'pointer',
+                color: '#666',
+              }}
+            >
+              ×
+            </button>
+          </div>
+          <div style={{ margin: '1.5rem 0' }}>
+            <p>{modalContent.content}</p>
+          </div>
+          <div style={{
+            display: 'flex',
+            justifyContent: 'flex-end'
+          }}>
+            <button
+              onClick={() => {
+                modalContent.onButtonClick();
+                closeModal();
+              }}
+              style={{
+                ...ctaButtonStyle,
+                padding: '0.75rem 1.5rem',
+              }}
+            >
+              {modalContent.buttonText}
+            </button>
+            <button
+              onClick={closeModal}
+              style={{
+                backgroundColor: '#f1f1f1',
+                color: '#333',
+                border: 'none',
+                padding: '0.75rem 1.5rem',
+                fontSize: '1rem',
+                borderRadius: theme.borderRadius,
+                cursor: 'pointer',
+                marginLeft: '0.75rem',
+              }}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <ThemedPage>
+      {/* Modal component */}
+      <Modal />
       {/* Hero section moved outside the container for true full-width */}
       <section style={{
         ...heroStyle,
@@ -118,7 +235,62 @@ export default function CreditScorePage() {
 
       }}>
         {/* Full width hero image with fill property */}
-        <a href="/credit-score/verification">
+        <a onClick={async () => {
+          try {
+            const resp = await reverify()
+            console.log("reverify resp:", resp)
+            if (resp.success) {
+              router.push("/credit-score/verification")
+              return
+            }
+
+            if (resp.totp?.metadata.verified === true) {
+              openModal(
+                "Verification required (Custom Provider [Twillio])",
+                `Enter the code sent to your phone to continue ${resp.totp.metadata.phonenumber}`,
+                "Verify",
+                async () => {
+                  try {
+                    await verify("000000")
+
+                    const resp = await reverify()
+                    if (resp.success) {
+                      router.push("/credit-score/verification")
+                      return
+                    }
+                  } catch (err) {
+                    console.error(err)
+                  }
+
+                }
+              );
+            }
+
+            if (resp.totp?.metadata.verified === false) {
+              openModal(
+                "This feature requires MFA (Custom Provider [Twillio])",
+                `Verify a phone number: [ pretend this is a textbox ${resp.totp.metadata.phonenumber}]`,
+                "Verify",
+                async () => {
+                  try {
+                    await verify("000000")
+
+                    const resp = await reverify()
+                    if (resp.success) {
+                      router.push("/credit-score/verification")
+                      return
+                    }
+                  } catch (err) {
+                    console.error(err)
+                  }
+
+                }
+              );
+            }
+          } catch (err) {
+            console.error(err)
+          }
+        }} >
           <Image
 
             src="/credit-score-landing.png"
@@ -235,7 +407,29 @@ export default function CreditScorePage() {
           <p style={{ fontSize: '1.1rem', marginBottom: '2rem', maxWidth: '800px', margin: '0 auto 2rem' }}>
             Join thousands of Australians who have improved their financial health with our credit score service.
           </p>
-          <button style={{ ...ctaButtonStyle, padding: '1.2rem 3rem' }}>Get My Free Credit Score</button>
+          <button
+            style={{ ...ctaButtonStyle, padding: '1.2rem 3rem' }}
+            onClick={() => {
+              openModal(
+                "Get Your Free Credit Score",
+                "Our secure service gives you instant access to your credit score along with personalized recommendations to improve it.",
+                "Check My Score",
+                async () => {
+                  try {
+                    const resp = await reverify()
+                    console.log("reverify resp:", resp)
+                    if (resp.success) {
+                      router.push("/credit-score/verification")
+                    }
+                  } catch (err) {
+                    console.error(err)
+                  }
+                }
+              );
+            }}
+          >
+            Get My Free Credit Score
+          </button>
         </section>
       </div>
     </ThemedPage>

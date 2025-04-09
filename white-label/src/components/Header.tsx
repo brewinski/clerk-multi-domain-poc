@@ -263,6 +263,9 @@ function HeaderContent() {
 							Credit Score
 							<div style={activeIndicatorStyle(isActiveLink('/credit-score'))}></div>
 						</Link>
+						<a href="http://primary.localhost:3002/sign-in?redirect_url=http://canstarblue.localhost:3001/">
+							<button style={buttonStyle(false)}>Sign In Blue</button>
+						</a>
 					</div>
 				</nav>
 			</div>
