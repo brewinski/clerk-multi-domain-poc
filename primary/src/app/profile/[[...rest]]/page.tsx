@@ -55,6 +55,20 @@ export default function ProfilePage() {
         >
           <CustomPageContent />
         </UserProfile.Page>
+        <UserProfile.Page
+          label="Delete"
+          url="delete"
+          labelIcon={<DotIcon />}
+        >
+          <p>Hello!</p>
+        </UserProfile.Page>
+        <UserProfile.Page
+          label="Credit Score"
+          url="credit-score"
+          labelIcon={<DotIcon />}
+        >
+          <p>This Is My Credit Score!</p>
+        </UserProfile.Page>
       </UserProfile>
 
 

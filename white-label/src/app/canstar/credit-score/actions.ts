@@ -64,7 +64,7 @@ const storeImplementation = process.env.USE_STORE === "redis" ? new RedisKVStore
 
 const verificationSerice = new VerificationService(storeImplementation)
 
-const MFA_VERIFICATION_MINS = 1
+const MFA_VERIFICATION_MINS = 0
 const MFA_CUSTOM_TOTP_MINS = 1
 const NEVER_VALUE = -1
 

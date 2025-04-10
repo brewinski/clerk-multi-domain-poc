@@ -333,7 +333,7 @@ export default function CreditScorePage() {
                       try {
                         await verify("000000")
 
-                        const resp = await reverify()
+                        const resp = await reverify(false)
                         if (resp.success) {
                           router.push("/credit-score/verification")
                           return
