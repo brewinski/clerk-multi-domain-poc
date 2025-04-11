@@ -49,8 +49,8 @@ export default function ProfilePage() {
         }}
       >
         <UserProfile.Page
-          label="Promotions"
-          url="promotions"
+          label="Dashboard"
+          url="dashboard"
           labelIcon={<DotIcon />}
         >
           <CustomPageContent />
@@ -69,6 +69,9 @@ export default function ProfilePage() {
         >
           <p>This Is My Credit Score!</p>
         </UserProfile.Page>
+
+        <UserProfile.Page label="account" />
+        <UserProfile.Page label="security" />
       </UserProfile>
 
 

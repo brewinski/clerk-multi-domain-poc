@@ -288,7 +288,7 @@ export default function CreditScorePage() {
         {/* Full width hero image with fill property */}
         <a onClick={async () => {
           try {
-            const resp = await reverify(false)
+            const resp = await reverify()
             console.log("reverify resp:", resp)
             if (resp.success) {
               router.push("/credit-score/verification")
@@ -304,7 +304,7 @@ export default function CreditScorePage() {
                   try {
                     await verify("000000")
 
-                    const resp = await reverify(false)
+                    const resp = await reverify()
                     if (resp.success) {
                       router.push("/credit-score/verification")
                       return
@@ -333,7 +333,7 @@ export default function CreditScorePage() {
                       try {
                         await verify("000000")
 
-                        const resp = await reverify(false)
+                        const resp = await reverify()
                         if (resp.success) {
                           router.push("/credit-score/verification")
                           return

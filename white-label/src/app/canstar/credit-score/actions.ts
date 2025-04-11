@@ -135,7 +135,7 @@ function verifyWithClerkWithOptionalMFASolution(firstVerificationAge: number, se
 }
 
 export async function check(
-	clerkOptionalMFAFlow: boolean
+	clerkOptionalMFAFlow: boolean = false
 ): Promise<any> {
 	const { factorVerificationAge, sessionClaims, userId, sessionId } = await auth.protect()
 	const hasMFAConfigured: boolean = !!sessionClaims?.isMfa
