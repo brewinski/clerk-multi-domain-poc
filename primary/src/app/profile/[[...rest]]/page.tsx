@@ -55,13 +55,17 @@ export default function ProfilePage() {
         >
           <CustomPageContent />
         </UserProfile.Page>
+
+        <UserProfile.Page label="account" />
+
         <UserProfile.Page
           label="Delete"
           url="delete"
           labelIcon={<DotIcon />}
         >
-          <p>Hello!</p>
+          <button className="bg-red hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">delete my account</button>
         </UserProfile.Page>
+
         <UserProfile.Page
           label="Credit Score"
           url="credit-score"
@@ -70,7 +74,6 @@ export default function ProfilePage() {
           <p>This Is My Credit Score!</p>
         </UserProfile.Page>
 
-        <UserProfile.Page label="account" />
         <UserProfile.Page label="security" />
       </UserProfile>
 

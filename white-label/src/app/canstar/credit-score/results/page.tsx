@@ -113,95 +113,24 @@ export default function CreditScoreResultsPage() {
         justifyContent: 'center',
         alignItems: 'center',
         width: '100%',
+        height: "auto",
         padding: 0,
         marginBottom: 0,
       }}>
         {/* Full width image that maintains aspect ratio */}
         <Image
-          src="/credit-score-verif-pt1.png"
-          alt="Credit score background"
+          src="/dashboard-example-pt1.png"
+          alt="test"
           width={1920}
           height={0}
           style={{
-            width: '100%',
+            width: '90%',
             height: 'auto',
             zIndex: 0,
           }}
-          sizes="100vw"
+          sizes="90vw"
           quality={90}
         />
-
-      </section>
-      {/* Hero section moved outside the container for true full-width */}
-      <section style={{
-        ...heroStyle,
-        borderRadius: 0, // Remove border radius for full-width appearance
-        marginBottom: 0, // Remove margin
-        width: '100%', // Ensure full width
-      }}>
-        {/* Full width image that maintains aspect ratio */}
-        <Image
-          src="/credit-score-verif-pt2.png"
-          alt="Credit score background"
-          width={1920}
-          height={0}
-          style={{
-            width: '100%',
-            height: 'auto',
-            zIndex: 0,
-          }}
-          sizes="100vw"
-          quality={90}
-        />
-
-      </section>
-
-      {/* Hero section moved outside the container for true full-width */}
-      <section style={{
-        ...heroStyle,
-        borderRadius: 0, // Remove border radius for full-width appearance
-        marginBottom: 0, // Remove margin
-        width: '100%', // Ensure full width
-      }}>
-        {/* Full width image that maintains aspect ratio */}
-        <Image
-          src="/credit-score-verif-pt3.png"
-          alt="Credit score background"
-          width={1920}
-          height={0}
-          style={{
-            width: '100%',
-            height: 'auto',
-            zIndex: 0,
-          }}
-          sizes="100vw"
-          quality={90}
-        />
-
-      </section>
-
-      {/* Hero section moved outside the container for true full-width */}
-      <section style={{
-        ...heroStyle,
-        borderRadius: 0, // Remove border radius for full-width appearance
-        marginBottom: 0, // Remove margin
-        width: '100%', // Ensure full width
-      }}>
-        {/* Full width image that maintains aspect ratio */}
-        <Image
-          src="/credit-score-verif-pt4.png"
-          alt="Credit score background"
-          width={1920}
-          height={0}
-          style={{
-            width: '100%',
-            height: 'auto',
-            zIndex: 0,
-          }}
-          sizes="100vw"
-          quality={90}
-        />
-
       </section>
     </ThemedPage>
   );

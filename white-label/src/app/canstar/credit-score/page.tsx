@@ -269,15 +269,6 @@ export default function CreditScorePage() {
       <Modal />
       {/* Hero section moved outside the container for true full-width */}
 
-      <a href="#" onClick={async (e) => {
-        e.preventDefault()
-        const resp = await reverify(true)
-        console.log("reverify resp:", resp)
-        if (resp.success) {
-          router.push("/credit-score/verification")
-          return
-        }
-      }}>Clerk only optionla MFA example</a>
       <section style={{
         ...heroStyle,
         borderRadius: 0, // Remove border radius for full-width appearance
@@ -369,7 +360,26 @@ export default function CreditScorePage() {
         </a>
 
       </section>
+      <button style={{
+        borderRadius: "5px",
+        background: theme.colors.primary,
+        color: theme.colors.background,
+        padding: "10px",
 
+      }}>
+
+        <a href="#" onClick={async (e) => {
+          e.preventDefault()
+          const resp = await reverify(true)
+          console.log("reverify resp:", resp)
+          if (resp.success) {
+            router.push("/credit-score/verification")
+            return
+          }
+        }}>
+          Continue (Clerk ReVerification Demo)
+        </a>
+      </button>
       <section style={{
         ...heroStyle,
         borderRadius: 0, // Remove border radius for full-width appearance
