@@ -70,6 +70,8 @@ const isMFARoute = createRouteMatcher([
 
 
 export default clerkMiddleware(async (auth, req) => {
+  if (!isProtectedRoute(req) && !isMFARoute(req))
+    return hostSiteMiddleware(req)
 
   if (isProtectedRoute(req)) {
     await auth.protect()
@@ -85,9 +87,6 @@ export default clerkMiddleware(async (auth, req) => {
       return NextResponse.redirect(new URL("/account/manage-mfa/", req.url))
     }
   }
-
-
-  return hostSiteMiddleware(req)
 
 }, {
   debug: Boolean(process.env.NEXT_PUBLIC_CLERK_DEBUG)
