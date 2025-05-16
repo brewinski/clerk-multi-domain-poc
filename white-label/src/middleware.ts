@@ -69,10 +69,7 @@ const isMFARoute = createRouteMatcher([
 ])
 
 
-export default clerkMiddleware(async (auth, req) => {
-  if (!isProtectedRoute(req) && !isMFARoute(req))
-    return hostSiteMiddleware(req)
-
+const clerkMiddlewareInstance = clerkMiddleware(async (auth, req) => {
   if (isProtectedRoute(req)) {
     await auth.protect()
   }
@@ -88,9 +85,20 @@ export default clerkMiddleware(async (auth, req) => {
     }
   }
 
+
+  return hostSiteMiddleware(req)
+
 }, {
   debug: Boolean(process.env.NEXT_PUBLIC_CLERK_DEBUG)
 })
+
+export default function middleware(req: NextRequest, event: any) {
+  if (isProtectedRoute(req)) {
+    return clerkMiddlewareInstance(req, event)
+  }
+
+  return hostSiteMiddleware(req)
+}
 
 export const config = {
   matcher: [
