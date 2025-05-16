@@ -70,15 +70,13 @@ const isMFARoute = createRouteMatcher([
 
 
 export default clerkMiddleware(async (auth, req) => {
-  const { userId, sessionClaims } = await auth();
-
-  console.log(sessionClaims, userId)
 
   if (isProtectedRoute(req)) {
     await auth.protect()
   }
 
   if (isMFARoute(req)) {
+    const { userId, sessionClaims } = await auth();
     if (sessionClaims!.isMfa === undefined) {
       console.error('You need to add the `isMfa` claim to your session token.')
     }
