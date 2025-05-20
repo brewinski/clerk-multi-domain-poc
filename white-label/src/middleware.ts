@@ -91,10 +91,8 @@ const clerkMiddlewareInstance = clerkMiddleware(async (auth, req) => {
   }
 
   return hostSiteMiddleware(req)
-}, (req: NextFetchEvent) => {
-  return {
-    debug: false,
-  }
+}, {
+  debug: false,
 })
 
 export default async function middleware(req: NextRequest, event: NextFetchEvent) {
