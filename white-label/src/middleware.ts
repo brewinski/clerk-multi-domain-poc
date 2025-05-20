@@ -68,7 +68,6 @@ const isMFARoute = createRouteMatcher([
 const skipSync = createRouteMatcher([
   "/",
   "",
-  "/credit-score"
 ])
 
 
