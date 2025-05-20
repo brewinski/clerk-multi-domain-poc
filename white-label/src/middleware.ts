@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextFetchEvent, NextRequest, NextResponse } from "next/server";
 import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
 
 function isCanstar(hostname: string) {
@@ -11,7 +11,7 @@ function isCanstarBlue(hostname: string) {
 
 
 function hostSiteMiddleware(req: NextRequest) {
-  const url = req.nextUrl;
+  const url = req.nextUrl.clone();
   // Get hostname of request (e.g. demo.vercel.pub, demo.localhost:3000)
   const hostname = req.headers
     .get("host")!
@@ -21,10 +21,8 @@ function hostSiteMiddleware(req: NextRequest) {
   // Get the pathname of the request (e.g. /, /about, /blog/first-post)
   const path = `${url.pathname}${searchParams.length > 0 ? `?${searchParams}` : ""}`;
 
-  console.log("HOST", hostname, "PATH", path);
 
   if (isCanstar(hostname)) {
-    console.log("isCanstar");
     // Set domain type in request headers for server components
     const requestHeaders = new Headers(req.headers);
     requestHeaders.set('x-domain-type', 'canstar');
@@ -38,7 +36,6 @@ function hostSiteMiddleware(req: NextRequest) {
   }
 
   if (isCanstarBlue(hostname)) {
-    console.log("isCanstarBlue");
     // Set domain type in request headers for server components
     const requestHeaders = new Headers(req.headers);
     requestHeaders.set('x-domain-type', 'canstarblue');
@@ -68,8 +65,16 @@ const isMFARoute = createRouteMatcher([
   //'/credit-score/verification(.*)'
 ])
 
+const skipSync = createRouteMatcher([
+  "/",
+  "",
+  "/credit-score"
+])
 
-export default clerkMiddleware(async (auth, req) => {
+
+
+
+const clerkMiddlewareInstance = clerkMiddleware(async (auth, req) => {
   if (isProtectedRoute(req)) {
     await auth.protect()
   }
@@ -85,12 +90,22 @@ export default clerkMiddleware(async (auth, req) => {
     }
   }
 
-
   return hostSiteMiddleware(req)
-
-}, {
-  debug: Boolean(process.env.NEXT_PUBLIC_CLERK_DEBUG)
+}, (req: NextFetchEvent) => {
+  return {
+    debug: false,
+  }
 })
+
+export default async function middleware(req: NextRequest, event: NextFetchEvent) {
+  if (skipSync(req)) {
+    req.cookies.set('__clerk_redirect_count', "3")
+  }
+
+  const response = clerkMiddlewareInstance(req, event) as NextResponse<any>;
+
+  return response
+}
 
 export const config = {
   matcher: [

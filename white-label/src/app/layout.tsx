@@ -12,7 +12,6 @@ export const metadata: Metadata = {
   description: 'Next.js multi-domain application with themed interfaces',
 };
 
-
 export default async function RootLayout({
   children,
 }: {
@@ -23,6 +22,16 @@ export default async function RootLayout({
     <html lang="en">
       <meta name="robots" content="all" />
       <meta name="google-site-verification" content="P9z0uYnscP75CoOnAOCAU-7ekJUfzdkuDfEHKkB8yDk" />
+      <head>
+        <script async>
+          const [key, value] = ['__clerk_synced', 'true'];
+          const url = new URL(window.location.href);
+          url.searchParams.set(key, value);
+          window.history.replaceState(window.history.state, '', url);
+          console.log("Running ClerkSyncUrlEffectComponent");
+        </script>
+
+      </head>
       <body>
         <ClerkProvider
           appearance={{
