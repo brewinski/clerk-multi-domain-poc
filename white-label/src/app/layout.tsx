@@ -17,6 +17,7 @@ export default async function RootLayout({
 }) {
   const cook = await cookies()
   const clerkRedirectValue = cook.get("__clerk_redirect_count")
+  console.log("redirect loop", clerkRedirectValue?.value)
 
   return (
     <html lang="en">
@@ -25,7 +26,7 @@ export default async function RootLayout({
       <head>
         {clerkRedirectValue?.value === "3" && (
           <script async>
-            if (window.location)
+            console.log("Running ClerkSyncUrlEffectComponent");
             const [key, value] = ['__clerk_synced', 'true'];
             const url = new URL(window.location.href);
             url.searchParams.set(key, value);
